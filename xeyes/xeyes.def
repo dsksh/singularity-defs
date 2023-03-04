@@ -1,0 +1,8 @@
+BootStrap: docker
+From: alpine:latest
+
+%post
+    apk add --no-cache xeyes
+
+%runscript
+    exec xeyes
