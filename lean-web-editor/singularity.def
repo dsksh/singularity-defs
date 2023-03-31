@@ -1,0 +1,22 @@
+BootStrap: docker
+From: debian:bullseye-slim
+
+%post
+    #sed -i 's@deb.debian.org/debian @ftp.jaist.ac.jp/debian @g' /etc/apt/sources.list
+    sed -i 's@deb.debian.org/debian @ftp.jp.debian.org/debian @g' /etc/apt/sources.list
+    apt-get update && apt-get install -y --no-install-recommends \
+    bash unzip \
+    net-tools \
+    curl openssl ca-certificates openssh-client \
+    git \
+    nodejs npm
+    #rm -rf /var/lib/apt/lists/*
+    #
+    cd /opt
+    curl -sLJO https://github.com/leanprover-community/lean-web-editor/archive/refs/heads/master.zip
+    unzip lean-web-editor-master.zip
+    cd lean-web-editor-master
+    ./fetch_lean_js.sh
+
+%environment
+    #export ELAN_HOME=/opt/elan
